@@ -6,7 +6,9 @@ import {
 
 export class Popup {
   private _popupEl: HTMLElement;
-  private _trackedObject: THREE.Intersection<THREE.Object3D<THREE.Event>>;
+  private _trackedObject: THREE.Intersection<
+    THREE.Object3D<THREE.Event>
+  > | null;
   private _camera: THREE.Camera;
   private _sizes: ScreenSizes;
 
@@ -18,6 +20,8 @@ export class Popup {
     this._popupEl = popupEl;
     this._camera = camera;
     this._sizes = sizesController.sizes;
+
+    popupEl.addEventListener("click", (event) => this._click(event));
   }
 
   hide() {
@@ -28,9 +32,15 @@ export class Popup {
     this._popupEl.classList.add("visible");
   }
 
-  set trackedObject(mesh: THREE.Intersection<THREE.Object3D<THREE.Event>>) {
+  set trackedObject(
+    mesh: THREE.Intersection<THREE.Object3D<THREE.Event>> | null
+  ) {
     this._trackedObject = mesh;
     this.show();
+  }
+
+  get trackedObject() {
+    return this._trackedObject;
   }
 
   update() {
@@ -41,5 +51,10 @@ export class Popup {
     const translateY = -screenProjection.y * this._sizes.height * 0.5;
 
     this._popupEl.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
+  }
+
+  private _click(event: MouseEvent) {
+    event.preventDefault();
+    console.log("event.target:", event.target);
   }
 }

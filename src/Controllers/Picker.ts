@@ -15,10 +15,13 @@ export class Picker3D {
   private _intersects: THREE.Intersection<THREE.Object3D<THREE.Event>>[] = [];
   private _popup: Popup;
 
+  private _kill: boolean = false;
+
   constructor(
     camera: THREE.Camera,
     items3D: FieldItem3D[],
-    sizesController: ScreenSizesController
+    sizesController: ScreenSizesController,
+    canvas: HTMLCanvasElement
   ) {
     this._sizes = sizesController.sizes;
     this._raycaster = new THREE.Raycaster();
@@ -32,22 +35,31 @@ export class Picker3D {
     for (let i = 0; i < items3D.length; i++) {
       this._itemsMeshes.push(items3D[i].mesh);
     }
-    window.addEventListener("pointermove", (event) => {
+    canvas.addEventListener("pointermove", (event) => {
       this._pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
       this._pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
     });
 
-    window.addEventListener("click", () => {
+    canvas.addEventListener("click", () => {
       this._pick();
     });
   }
 
   private _pick() {
-    if (this._intersects.length === 0) {
+    this._kill = false;
+    if (
+      this._intersects.length === 0 ||
+      (this._popup.trackedObject &&
+        this._popup.trackedObject != this._intersects[0])
+    ) {
+      this._popup.trackedObject = null;
       this._popup.hide();
       return;
     }
     this._popup.trackedObject = this._intersects[0];
+    setTimeout(() => {
+      this._kill = true;
+    }, 15);
   }
 
   public update() {
@@ -58,5 +70,9 @@ export class Picker3D {
 
   get intersects(): THREE.Intersection<THREE.Object3D<THREE.Event>>[] {
     return this._intersects;
+  }
+
+  get kill(): boolean {
+    return this._kill;
   }
 }

@@ -60,7 +60,8 @@ export default class App {
     const picker = new Picker3D(
       cameraController.camera,
       field.items3D,
-      sizesController
+      sizesController,
+      this._canvas
     );
 
     // Controls
@@ -91,7 +92,7 @@ export default class App {
       // console.log("elapsedTime:", elapsedTime);
 
       picker.update();
-      if (picker.intersects) {
+      if (picker.intersects && !picker.kill) {
         aimationController.animate(picker.intersects, deltaTime);
       }
 
