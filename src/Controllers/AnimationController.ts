@@ -25,6 +25,5 @@ export class AnimationController {
       duration: this._ANIMATION_DURATION,
       y: 0.5,
     });
-    // console.log("intersects[0]:", intersects[0]);
   }
 }

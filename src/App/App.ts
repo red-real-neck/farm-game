@@ -57,7 +57,11 @@ export default class App {
     /**
      * Picker
      */
-    const picker = new Picker3D(cameraController.camera, field.items3D);
+    const picker = new Picker3D(
+      cameraController.camera,
+      field.items3D,
+      sizesController
+    );
 
     // Controls
     const controlsController = new ControlsController(
