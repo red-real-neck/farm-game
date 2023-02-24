@@ -38,7 +38,7 @@ body {
   position: absolute;
   z-index: 50;
   opacity: 0;
-  transition: 0.3s;
+  transition: 0.1s;
 }
 
 .popup.visible {
