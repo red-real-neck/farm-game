@@ -61,6 +61,7 @@ export class Picker3D {
   }
 
   public update() {
+    if (!this._popup.trackedObject) this._kill = false;
     this._raycaster.setFromCamera(this._pointer, this._camera);
     this._intersects = this._raycaster.intersectObjects(this._itemsMeshes);
     this._popup.update();

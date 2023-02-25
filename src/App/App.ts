@@ -1,12 +1,13 @@
 import * as THREE from "three";
-import { AnimationController } from "../Controllers/AnimationController";
 
 import PerspectiveCameraController from "../Controllers/CameraController/PerspectiveCameraController";
-import { ControlsController } from "../Controllers/ControlsController/ControlsController";
-import { Picker3D } from "../Controllers/Picker";
-import { RendererController } from "../Controllers/RendererController/RendererController";
 import { ScreenSizesController } from "../Controllers/ScreenSizesController/ScreenSizesController";
+import { ControlsController } from "../Controllers/ControlsController/ControlsController";
+import { RendererController } from "../Controllers/RendererController/RendererController";
+import { AnimationController } from "../Controllers/AnimationController";
+import { Picker3D } from "../Controllers/Picker";
 import { Field } from "../Entities/Filed";
+import { Loader } from "../Loader/Loader";
 
 export default class App {
   private _canvas: HTMLCanvasElement;
@@ -25,13 +26,25 @@ export default class App {
     /**
      * Object
      */
-    // Define the material and geometry for each square
+
+    // const model = Loader.load("./models/chicken.glb", scene);
+    // scene.add(model);
+
     const textureLoader = new THREE.TextureLoader();
+
     const grassSideTex = textureLoader.load("./grass-side.jpg");
     const grassTopTex = textureLoader.load("./grass-top.jpg");
+
+    const plowedTex = textureLoader.load("./plowed.jpg");
     const field = new Field(8, 8, {
-      side: grassSideTex,
-      top: grassTopTex,
+      default: {
+        side: grassSideTex,
+        top: grassTopTex,
+      },
+      plowed: {
+        side: plowedTex,
+        top: plowedTex,
+      },
     });
 
     scene.add(field.group3D);

@@ -7,6 +7,10 @@ export type BlockTextures = {
   top: THREE.Texture;
 };
 
+export type TextureStates = {
+  default: BlockTextures;
+  plowed: BlockTextures;
+};
 export class Field3D {
   private _group3D: THREE.Group;
   private _fieldHeight: number;
@@ -17,7 +21,7 @@ export class Field3D {
     fieldHeight: number,
     fieldWidth: number,
     items: FieldItem[],
-    textures: BlockTextures
+    textures: TextureStates
   ) {
     this._group3D = new THREE.Group();
     this._fieldHeight = fieldHeight;
@@ -25,7 +29,7 @@ export class Field3D {
     this._generateField(items, textures);
   }
 
-  private _generateField(items: FieldItem[], textures: BlockTextures) {
+  private _generateField(items: FieldItem[], textures: TextureStates) {
     for (let i = 0; i < items.length; i++) {
       const item3D = items[i].createItem3D(
         this._fieldHeight,
