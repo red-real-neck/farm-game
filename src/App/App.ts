@@ -24,10 +24,14 @@ export default class App {
     const scene = new THREE.Scene();
 
     // Light
-    const directionalLight = new THREE.DirectionalLight("white", 3);
+    const directionalLight = new THREE.DirectionalLight("white", 1);
+    const directionalLight2 = new THREE.DirectionalLight("white", 1);
     directionalLight.position.z = 3;
     directionalLight.position.y = 3;
-    scene.add(directionalLight);
+
+    directionalLight2.position.z = -3;
+    directionalLight2.position.y = -3;
+    scene.add(directionalLight, directionalLight2);
 
     /**
      * Object

@@ -4,6 +4,8 @@ import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
 const CHICKEN_SCALE = 10;
 const COW_SCALE = 0.2;
 const WHEAT_SCALE = 0.005;
+const EGG_SCALE = 0.2;
+const MILK_SCALE = 3;
 
 export class Loader {
   static load(path, scene, unitName) {
@@ -27,6 +29,14 @@ export class Loader {
           case "WHEAT":
             glb.scene.scale.set(WHEAT_SCALE, WHEAT_SCALE, WHEAT_SCALE);
             glb.scene.position.y -= 0.2;
+            break;
+          case "EGG":
+            glb.scene.scale.set(EGG_SCALE, EGG_SCALE, EGG_SCALE);
+            glb.scene.position.y += 1;
+            break;
+          case "MILK":
+            glb.scene.scale.set(MILK_SCALE, MILK_SCALE, MILK_SCALE);
+            glb.scene.position.y += 0.5;
             break;
         }
         scene.add(glb.scene);

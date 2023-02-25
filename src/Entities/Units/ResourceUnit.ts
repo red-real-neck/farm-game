@@ -2,6 +2,8 @@ export enum Resources {
   WHEAT = "WHEAT",
   COW = "COW",
   CHICKEN = "CHICKEN",
+  EGG = "EGG",
+  MILK = "MILK",
 }
 
 interface ResourceUnitInterface {

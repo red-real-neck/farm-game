@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { FieldItem } from "../Entities/FieldItem";
+import { Food, FoodType } from "../Entities/Foods/Food";
 import { Resources, ResourceUnit } from "../Entities/Units/ResourceUnit";
 import { Unit3DFabric } from "../Fabric/Unit3DFabric";
 import { Loader } from "../Loader/Loader";
@@ -11,6 +12,7 @@ export class FieldItem3D {
   private _mesh: THREE.Mesh;
   private _textures: TextureStates;
   private _unit3DInstance: THREE.Group;
+  private _food3DInstance: THREE.Group;
 
   constructor(
     fieldHeight: number,
@@ -67,8 +69,6 @@ export class FieldItem3D {
           this._textureCube[i].map = this._textures.plowed.side;
           this._textureCube[i].needsUpdate = true;
         }
-        this._unit3DInstance = Unit3DFabric.Instance.wheat;
-        this._showUnit3DInstance();
         break;
       case Resources.CHICKEN:
         this._unit3DInstance = Unit3DFabric.Instance.chicken;
@@ -81,9 +81,32 @@ export class FieldItem3D {
       case Resources.WHEAT:
     }
   }
+
+  public showFood(food: Food) {
+    console.log("food3d:", food.type);
+    switch (food.type) {
+      case FoodType.WHEAT:
+        this._unit3DInstance = Unit3DFabric.Instance.wheat;
+        this._showUnit3DInstance();
+        break;
+      case FoodType.EGG:
+        this._food3DInstance = Unit3DFabric.Instance.egg;
+        this._showFood3DInstance();
+        break;
+      case FoodType.MILK:
+        this._food3DInstance = Unit3DFabric.Instance.milk;
+        this._showFood3DInstance();
+        break;
+    }
+  }
+
   private _showUnit3DInstance() {
     this._mesh.add(this._unit3DInstance);
-    console.log("this._unit3DInstance:", this._unit3DInstance);
+  }
+
+  private _showFood3DInstance() {
+    this._mesh.add(this._food3DInstance);
+    console.log("this._food3DInstance:", this._food3DInstance);
   }
 
   get mesh(): THREE.Mesh {

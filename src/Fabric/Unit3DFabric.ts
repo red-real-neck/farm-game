@@ -8,11 +8,15 @@ export class Unit3DFabric {
   private _chicken: THREE.Group = new THREE.Group();
   private _wheat: THREE.Group = new THREE.Group();
   private _cow: THREE.Group = new THREE.Group();
+  private _egg: THREE.Group = new THREE.Group();
+  private _milk: THREE.Group = new THREE.Group();
 
   private constructor() {
     Loader.load("./models/chicken.glb", this._chicken, Resources.CHICKEN);
     Loader.load("./models/wheat.glb", this._wheat, Resources.WHEAT);
     Loader.load("./models/cow.glb", this._cow, Resources.COW);
+    Loader.load("./models/egg.glb", this._egg, Resources.EGG);
+    Loader.load("./models/milk.glb", this._milk, Resources.MILK);
   }
 
   public static get Instance() {
@@ -32,5 +36,15 @@ export class Unit3DFabric {
   get cow() {
     const newCow = this._cow.clone();
     return newCow;
+  }
+
+  get egg() {
+    const newEgg = this._egg.clone();
+    return newEgg;
+  }
+
+  get milk() {
+    const newMilk = this._milk.clone();
+    return newMilk;
   }
 }
