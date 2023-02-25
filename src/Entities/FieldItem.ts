@@ -7,6 +7,7 @@ import { Food, FoodType } from "./Foods/Food";
 import { ChickenUnitController } from "../Controllers/UnitController/ChickenUnitController";
 import { UnitControllerInterface } from "../Controllers/UnitController/UnitControllerInterface";
 import { CowUnitController } from "../Controllers/UnitController/CowUnitController";
+import { FoodCollector } from "../Collector/FoodCollector";
 
 export enum FoodTypeByUnit {
   WHEAT = FoodType.WHEAT,
@@ -58,7 +59,9 @@ export class FieldItem {
   }
 
   public collectFood() {
+    if (!this._food) return;
     this._item3D.destroyFood();
+    FoodCollector.getInstance().addItem(this._food);
   }
 
   get food() {
