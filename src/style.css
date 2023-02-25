@@ -113,12 +113,15 @@ body {
 }
 
 .item-counter {
+  color: rgb(220, 218, 218);
   position: absolute;
   text-align: center;
   width: 2vw;
   height: 2vw;
   line-height: 2vw;
-  background-color: green;
+  background-color: rgba(69, 106, 50, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   border-radius: 100%;
   bottom: 0;
   left: 50%;

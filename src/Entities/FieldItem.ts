@@ -32,6 +32,7 @@ export class FieldItem {
   }
 
   public setUnit(unit: Resources) {
+    FoodCollector.getInstance().subItem(unit);
     this._resourceUnit = UnitFabric.createUnit(unit);
     this._item3D.update(this._resourceUnit);
     this._unitController;

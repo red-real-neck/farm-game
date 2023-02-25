@@ -1,7 +1,7 @@
 export enum UnitsLiveTime {
-  WHEAT = 1,
-  CHICKEN = 1,
-  COW = 1,
+  WHEAT = 10,
+  CHICKEN = 10,
+  COW = 20,
 }
 
 export interface UnitControllerInterface {
