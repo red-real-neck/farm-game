@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { FieldItem } from "../Entities/FieldItem";
 import { Resources, ResourceUnit } from "../Entities/Units/ResourceUnit";
+import { Unit3DFabric } from "../Fabric/Unit3DFabric";
 import { Loader } from "../Loader/Loader";
 import { BlockTextures, TextureStates } from "./Field3D";
 
@@ -9,6 +10,7 @@ export class FieldItem3D {
   private _geometry: THREE.BoxGeometry;
   private _mesh: THREE.Mesh;
   private _textures: TextureStates;
+  private _unit3DInstance: THREE.Group;
 
   constructor(
     fieldHeight: number,
@@ -65,10 +67,23 @@ export class FieldItem3D {
           this._textureCube[i].map = this._textures.plowed.side;
           this._textureCube[i].needsUpdate = true;
         }
+        this._unit3DInstance = Unit3DFabric.Instance.wheat;
+        this._showUnit3DInstance();
         break;
       case Resources.CHICKEN:
-        const model = Loader.load("./models/chicken.glb", this._mesh);
+        this._unit3DInstance = Unit3DFabric.Instance.chicken;
+        this._showUnit3DInstance();
+        break;
+      case Resources.COW:
+        this._unit3DInstance = Unit3DFabric.Instance.cow;
+        this._showUnit3DInstance();
+        break;
+      case Resources.WHEAT:
     }
+  }
+  private _showUnit3DInstance() {
+    this._mesh.add(this._unit3DInstance);
+    console.log("this._unit3DInstance:", this._unit3DInstance);
   }
 
   get mesh(): THREE.Mesh {

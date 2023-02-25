@@ -23,6 +23,12 @@ export default class App {
     // Scene
     const scene = new THREE.Scene();
 
+    // Light
+    const directionalLight = new THREE.DirectionalLight("white", 3);
+    directionalLight.position.z = 3;
+    directionalLight.position.y = 3;
+    scene.add(directionalLight);
+
     /**
      * Object
      */
@@ -102,7 +108,6 @@ export default class App {
     const tick = () => {
       const elapsedTime = clock.getElapsedTime();
       const deltaTime = clock.getDelta();
-      // console.log("elapsedTime:", elapsedTime);
 
       picker.update();
       if (picker.intersects && !picker.kill) {
