@@ -11,8 +11,8 @@ export class FieldItem3D {
   private _geometry: THREE.BoxGeometry;
   private _mesh: THREE.Mesh;
   private _textures: TextureStates;
-  private _unit3DInstance: THREE.Group;
-  private _food3DInstance: THREE.Group;
+  private _unit3DInstance: THREE.Group | null;
+  private _food3DInstance: THREE.Group | null;
 
   constructor(
     fieldHeight: number,
@@ -86,26 +86,29 @@ export class FieldItem3D {
     console.log("food3d:", food.type);
     switch (food.type) {
       case FoodType.WHEAT:
-        this._unit3DInstance = Unit3DFabric.Instance.wheat;
-        this._showUnit3DInstance();
+        this._food3DInstance = Unit3DFabric.Instance.wheat;
         break;
       case FoodType.EGG:
         this._food3DInstance = Unit3DFabric.Instance.egg;
-        this._showFood3DInstance();
         break;
       case FoodType.MILK:
         this._food3DInstance = Unit3DFabric.Instance.milk;
-        this._showFood3DInstance();
         break;
     }
+    this._showFood3DInstance();
+  }
+
+  public destroyFood() {
+    this._mesh.remove(this._food3DInstance!);
+    this._food3DInstance = null;
   }
 
   private _showUnit3DInstance() {
-    this._mesh.add(this._unit3DInstance);
+    this._mesh.add(this._unit3DInstance!);
   }
 
   private _showFood3DInstance() {
-    this._mesh.add(this._food3DInstance);
+    this._mesh.add(this._food3DInstance!);
     console.log("this._food3DInstance:", this._food3DInstance);
   }
 

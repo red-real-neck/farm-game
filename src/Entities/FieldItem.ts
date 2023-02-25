@@ -18,7 +18,7 @@ export class FieldItem {
   private _item3D: FieldItem3D;
   private _resourceUnit: ResourceUnit | null = null;
   private _unitController: UnitControllerInterface;
-  private _food: Food;
+  private _food: Food | null;
 
   createItem3D(
     fieldHeight: number,
@@ -55,5 +55,13 @@ export class FieldItem {
   public newFood() {
     this._food = new Food(FoodTypeByUnit[this.resourceType]);
     this._item3D.showFood(this._food);
+  }
+
+  public collectFood() {
+    this._item3D.destroyFood();
+  }
+
+  get food() {
+    return this._food;
   }
 }

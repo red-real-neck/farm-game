@@ -45,6 +45,7 @@ export class Picker3D {
 
   private _pick() {
     this._kill = false;
+
     if (
       this._intersects.length === 0 ||
       (this._popup.trackedObject &&
@@ -54,6 +55,12 @@ export class Picker3D {
       this._popup.hide();
       return;
     }
+
+    if (this._intersects[0].object.userData.itemEntity.food) {
+      this._intersects[0].object.userData.itemEntity.collectFood();
+      return;
+    }
+
     this._popup.trackedObject = this._intersects[0];
     setTimeout(() => {
       this._kill = true;
