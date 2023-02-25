@@ -2,10 +2,12 @@ import { Resources, ResourceUnit } from "./Units/ResourceUnit";
 import { FieldItem3D } from "../3dObjects/FieldItem3D";
 import { BlockTextures, TextureStates } from "../3dObjects/Field3D";
 import { UnitFabric } from "../Fabric/UnitFabric";
+import { UnitController } from "../Controllers/UnitController/UnitController";
 
 export class FieldItem {
   private _item3D: FieldItem3D;
   private _resourceUnit: ResourceUnit | null = null;
+  private _unitController: UnitController;
 
   createItem3D(
     fieldHeight: number,
@@ -20,5 +22,10 @@ export class FieldItem {
   public setUnit(unit: Resources) {
     this._resourceUnit = UnitFabric.createUnit(unit);
     this._item3D.update(this._resourceUnit);
+    const unitController = new UnitController(this);
+  }
+
+  get resourceType() {
+    return this._resourceUnit?.unit;
   }
 }
