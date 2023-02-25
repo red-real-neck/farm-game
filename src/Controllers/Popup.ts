@@ -54,6 +54,11 @@ export class Popup {
   }
 
   private _click(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    if (target.id === "popup-wrapper") {
+      console.log("wrapper");
+      return;
+    }
     event.preventDefault();
     console.log("event.target:", event.target);
   }

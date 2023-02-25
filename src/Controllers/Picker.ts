@@ -8,7 +8,6 @@ import {
 
 export class Picker3D {
   private _raycaster: THREE.Raycaster;
-  private _sizes: ScreenSizes;
   private _pointer: THREE.Vector2;
   private _camera: THREE.Camera;
   private _itemsMeshes: THREE.Mesh[] = [];
@@ -23,12 +22,11 @@ export class Picker3D {
     sizesController: ScreenSizesController,
     canvas: HTMLCanvasElement
   ) {
-    this._sizes = sizesController.sizes;
     this._raycaster = new THREE.Raycaster();
     this._pointer = new THREE.Vector2(10000, 10000);
     this._camera = camera;
     this._popup = new Popup(
-      document.querySelector("#bar")! as HTMLElement,
+      document.querySelector("#popup-wrapper")! as HTMLElement,
       camera,
       sizesController
     );
@@ -63,9 +61,9 @@ export class Picker3D {
   }
 
   public update() {
-    this._popup.update();
     this._raycaster.setFromCamera(this._pointer, this._camera);
     this._intersects = this._raycaster.intersectObjects(this._itemsMeshes);
+    this._popup.update();
   }
 
   get intersects(): THREE.Intersection<THREE.Object3D<THREE.Event>>[] {
