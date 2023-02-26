@@ -10,11 +10,24 @@ export class FoodCollector {
   private wheatCounterUI: HTMLElement;
   private eggCounterUI: HTMLElement;
   private milkCounterUI: HTMLElement;
+  private saleActionEl: HTMLElement;
+  private moneyEl: HTMLElement;
 
   private constructor() {
     this.wheatCounterUI = document.querySelector("#wheat-counter")!;
     this.eggCounterUI = document.querySelector("#egg-counter")!;
     this.milkCounterUI = document.querySelector("#milk-counter")!;
+    this.saleActionEl = document.querySelector(".sale")!;
+    this.moneyEl = document.querySelector(".money")!;
+    this.saleActionEl.addEventListener("click", () => {
+      this.saleAction();
+    });
+    this.updateUI();
+  }
+  saleAction() {
+    this.moneyEl.innerText = `${this.EGG + this.MILK}$`;
+    this.EGG = 0;
+    this.MILK = 0;
     this.updateUI();
   }
 
