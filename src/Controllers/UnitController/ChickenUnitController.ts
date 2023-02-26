@@ -111,7 +111,7 @@ export class ChickenUnitController implements UnitControllerInterface {
     this._resourceGenerateFill.style.width = `${
       this._isHunger
         ? 0
-        : 100 - this._restTime / (UnitsLiveTime[this._item.resourceType!] / 100)
+        : 90 - this._restTime / (UnitsLiveTime[this._item.resourceType!] / 100)
     }%`;
 
     const point = this._item.item3D.mesh.position.clone();
