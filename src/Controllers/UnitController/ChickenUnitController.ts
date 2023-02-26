@@ -1,14 +1,14 @@
 import { Resources } from "../../Entities/Units/ResourceUnit";
 import { FieldItem } from "../../Entities/FieldItem";
 import {
+  BAR_HEIGHT,
+  BAR_WIDTH,
   UnitControllerInterface,
   UnitsLiveTime,
 } from "./UnitControllerInterface";
 import { ScreenSizes } from "../ScreenSizesController/ScreenSizesController";
 
 const HUNGER_TIMEL: number = 30;
-const BAR_WIDTH = `5vw`;
-const BAR_HEIGHT = `1vh`;
 
 export class ChickenUnitController implements UnitControllerInterface {
   private _item: FieldItem;
