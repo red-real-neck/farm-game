@@ -50,11 +50,11 @@ export class WheatUnitController implements UnitControllerInterface {
     let timer;
     this._restTime = UnitsLiveTime[this._item.resourceType!];
     timer = setInterval(() => {
-      if (this._restTime <= 0) {
-        clearInterval(timer);
+      if (this._restTime === 1) {
+        this.resetGetResourceTimeCounter();
         this._item.newFood();
       } else {
-        console.log("this._restTime:", this._restTime);
+        // console.log("this._restTime:", this._restTime);
       }
       --this._restTime;
     }, 1000);
@@ -94,7 +94,7 @@ export class WheatUnitController implements UnitControllerInterface {
 
   private updateGerResourceUI() {
     this._resourceGenerateFill.style.width = `${
-      (UnitsLiveTime[this._item.resourceType!] / this._restTime) * 10
+      100 - this._restTime / (UnitsLiveTime[this._item.resourceType!] / 100)
     }%`;
 
     const point = this._item.item3D.mesh.position.clone();
