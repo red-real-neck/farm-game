@@ -22,7 +22,8 @@ export default class PerspectiveCameraController {
       0.1,
       100
     );
-    this._camera.position.z = 3;
+    this._camera.position.z = 18;
+    this._camera.position.y = 8;
     this._scene.add(this._camera);
   }
 

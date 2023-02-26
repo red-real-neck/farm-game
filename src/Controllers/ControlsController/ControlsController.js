@@ -11,14 +11,14 @@ export class ControlsController {
   }
 
   initGameCameraSetting() {
-    this.controls.zoomSpeed = 0.03;
+    this.controls.zoomSpeed = 0.3;
     this.controls.rotateSpeed = 0.3;
     this.controls.enablePan = false;
-    this.controls.maxDistance = 10;
-    this.controls.minDistance = 9.5;
-    this.controls.minPolarAngle = Math.PI / 4;
+    this.controls.maxDistance = 18;
+    this.controls.minDistance = 12.5;
+    this.controls.minPolarAngle = Math.PI / 6;
     this.controls.maxPolarAngle = Math.PI / 3;
-    this.controls.minAzimuthAngle = -Math.PI / 4;
-    this.controls.maxAzimuthAngle = Math.PI / 4;
+    this.controls.minAzimuthAngle = -Math.PI / 2;
+    this.controls.maxAzimuthAngle = Math.PI / 2;
   }
 }

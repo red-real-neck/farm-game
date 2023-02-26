@@ -34,6 +34,7 @@ body {
   height: 16vw;
   display: none;
   pointer-events: none;
+  z-index: 100;
 }
 
 .bar-wrapper {
@@ -158,7 +159,7 @@ body {
 .hunger-progress-bar {
   position: absolute;
   /* transform: rotate(-90deg); */
-  top: 100%;
+  top: 400%;
   left: -40%;
   pointer-events: auto;
   height: 20px;

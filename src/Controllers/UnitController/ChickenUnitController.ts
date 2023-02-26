@@ -193,4 +193,17 @@ export class ChickenUnitController implements UnitControllerInterface {
     this.resetGetResourceTimeCounter();
     this.startGetResourceTimeCounter();
   }
+
+  restartHungerTimer() {
+    this.resetHungerTimeCounter();
+    this.startHungerTimer();
+  }
+
+  feed() {
+    this._isHunger = false;
+    this.restartHungerTimer();
+    if (!this._getResourceTimer) {
+      this.restartGetResourceTimer();
+    }
+  }
 }

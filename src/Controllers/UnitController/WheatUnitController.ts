@@ -111,4 +111,7 @@ export class WheatUnitController implements UnitControllerInterface {
   kill() {
     throw new Error("Method not implemented.");
   }
+  feed() {
+    throw new Error("Method not implemented.");
+  }
 }

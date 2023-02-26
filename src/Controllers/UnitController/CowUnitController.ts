@@ -70,6 +70,7 @@ export class CowUnitController implements UnitControllerInterface {
       if (this._restHungerTime <= 0) {
         this._isHunger = true;
         this.resetHungerTimeCounter();
+        this.resetGetResourceTimeCounter();
       } else {
         // console.log("hunger timer:", this._restHungerTime);
       }
@@ -80,6 +81,8 @@ export class CowUnitController implements UnitControllerInterface {
 
   private resetGetResourceTimeCounter() {
     clearInterval(this._getResourceTimer);
+    this._getResourceTimer = null;
+    this._restTime = 0;
   }
 
   private resetHungerTimeCounter() {
@@ -192,5 +195,19 @@ export class CowUnitController implements UnitControllerInterface {
   restartGetResourceTimer() {
     this.resetGetResourceTimeCounter();
     this.startGetResourceTimeCounter();
+  }
+
+  restartHungerTimer() {
+    this.resetHungerTimeCounter();
+    this.startHungerTimer();
+  }
+
+  feed() {
+    console.log("this._restTime:", this._restTime);
+    this._isHunger = false;
+    this.restartHungerTimer();
+    if (!this._getResourceTimer) {
+      this.restartGetResourceTimer();
+    }
   }
 }

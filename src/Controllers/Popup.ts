@@ -60,13 +60,17 @@ export class Popup {
 
   private _click(event: MouseEvent) {
     const target = event.target as HTMLElement;
-    if (!target.dataset.unit) return;
+    if (!target.dataset.unit && !target.dataset.action) return;
     event.preventDefault();
-    this._trackedObject?.object.userData.itemEntity.setUnit(
-      target.dataset.unit,
-      this._camera,
-      this._sizes
-    );
+    if (target.dataset.action) {
+      this._trackedObject?.object.userData.itemEntity.feed();
+    } else {
+      this._trackedObject?.object.userData.itemEntity.setUnit(
+        target.dataset.unit,
+        this._camera,
+        this._sizes
+      );
+    }
     this.hide();
     this._trackedObject = null;
   }

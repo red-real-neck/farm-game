@@ -87,4 +87,9 @@ export class FieldItem {
   render() {
     this._unitController?.updateUI();
   }
+
+  public feed() {
+    FoodCollector.getInstance().subItem(Resources.WHEAT);
+    this._unitController?.feed();
+  }
 }
