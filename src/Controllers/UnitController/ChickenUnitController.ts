@@ -13,6 +13,7 @@ const BAR_HEIGHT = `1vh`;
 export class ChickenUnitController implements UnitControllerInterface {
   private _item: FieldItem;
   private _restTime: number = 0;
+  private _restHungerTime: number = HUNGER_TIMEL;
   private _getResourceTimer;
   private _hungerTimer: number;
   private _isHunger: boolean = false;
@@ -21,6 +22,10 @@ export class ChickenUnitController implements UnitControllerInterface {
   private _barWrapper: HTMLElement;
   private _resourceGenerateBar: HTMLElement;
   private _resourceGenerateFill: HTMLElement;
+
+  private _hungerWrapper: HTMLElement;
+  private _hungerBar: HTMLElement;
+  private _hungerFill: HTMLElement;
 
   constructor(
     fieldItem: FieldItem,
@@ -41,7 +46,11 @@ export class ChickenUnitController implements UnitControllerInterface {
         this.resetGetResourceTimeCounter();
         if (!this._isHunger) this._item.newFood();
       } else {
-        // update UI
+        if (this._isHunger) {
+          this.resetGetResourceTimeCounter();
+          this._restTime = 0;
+          return;
+        }
         console.log("get resource time:", this._restTime);
       }
       this._restTime -= 1;
@@ -56,15 +65,15 @@ export class ChickenUnitController implements UnitControllerInterface {
 
   startHungerTimer() {
     let timer;
-    let restTime = HUNGER_TIMEL;
+    this._restHungerTime = HUNGER_TIMEL;
     timer = setInterval(() => {
-      if (restTime <= 0) {
+      if (this._restHungerTime === 1) {
         this._isHunger = true;
+        this.resetHungerTimeCounter();
       } else {
-        // update UI
-        console.log("hunger timer:", restTime);
+        console.log("hunger timer:", this._restHungerTime);
       }
-      restTime -= 1;
+      this._restHungerTime -= 1;
     }, 1000);
     this._hungerTimer = timer;
   }
@@ -86,6 +95,47 @@ export class ChickenUnitController implements UnitControllerInterface {
       throw new Error("No field item provided for UI");
     }
 
+    this.generateGetResourceUI();
+    this.generateHungerUI();
+  }
+
+  updateUI() {
+    this.updateGerResourceUI();
+    this.updateHungerUI();
+  }
+
+  private updateGerResourceUI() {
+    this._resourceGenerateFill.style.width = `${
+      this._isHunger
+        ? 0
+        : (UnitsLiveTime[this._item.resourceType!] / this._restTime) * 10
+    }%`;
+
+    const point = this._item.item3D.mesh.position.clone();
+    const screenProjection = point.project(this._camera);
+    const translateX = screenProjection.x * this._sizes.width * 0.5;
+    const translateY = -screenProjection.y * this._sizes.height * 0.5;
+
+    this._barWrapper.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
+  }
+
+  private updateHungerUI() {
+    const coeff = (HUNGER_TIMEL / this._restHungerTime) * 10;
+    this._hungerFill.style.width = `${100 - coeff}%`;
+
+    this._hungerFill.style.background = `rgb(${75 + coeff}, ${
+      154 - coeff
+    }, 66)`;
+
+    const point = this._item.item3D.mesh.position.clone();
+    const screenProjection = point.project(this._camera);
+    const translateX = screenProjection.x * this._sizes.width * 0.5;
+    const translateY = -screenProjection.y * this._sizes.height * 0.5;
+
+    this._hungerWrapper.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
+  }
+
+  private generateGetResourceUI() {
     this._barWrapper = document.createElement("div");
     this._barWrapper.classList.add("bar-wrapper");
     this._resourceGenerateBar = document.createElement("div");
@@ -111,17 +161,32 @@ export class ChickenUnitController implements UnitControllerInterface {
     this._barWrapper.appendChild(this._resourceGenerateBar);
     document.body.appendChild(this._barWrapper);
   }
-  updateUI() {
-    this._resourceGenerateFill.style.width = `${
-      (UnitsLiveTime[this._item.resourceType!] / this._restTime) * 10
-    }%`;
+
+  private generateHungerUI() {
+    this._hungerWrapper = document.createElement("div");
+    this._hungerWrapper.classList.add("bar-wrapper");
+    this._hungerBar = document.createElement("div");
+    this._hungerFill = document.createElement("div");
+
+    this._hungerBar.classList.add("hunger-progress-bar");
+    this._hungerFill.classList.add("progress-fill__hunger");
+
+    this._hungerBar.appendChild(this._hungerFill);
+
+    this._hungerBar.style.width = BAR_WIDTH;
+    this._hungerBar.style.height = BAR_HEIGHT;
 
     const point = this._item.item3D.mesh.position.clone();
     const screenProjection = point.project(this._camera);
     const translateX = screenProjection.x * this._sizes.width * 0.5;
     const translateY = -screenProjection.y * this._sizes.height * 0.5;
 
-    this._barWrapper.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
+    this._hungerWrapper.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
+    this._hungerWrapper.style.width = BAR_WIDTH;
+    this._hungerWrapper.style.height = BAR_HEIGHT;
+
+    this._hungerWrapper.appendChild(this._hungerBar);
+    document.body.appendChild(this._hungerWrapper);
   }
 
   restartGetResourceTimer() {

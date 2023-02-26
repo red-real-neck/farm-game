@@ -154,6 +154,21 @@ body {
   box-shadow: 0 0 32px blue;
 }
 
+.hunger-progress-bar {
+  position: absolute;
+  /* transform: rotate(-90deg); */
+  top: -30%;
+  left: -40%;
+  pointer-events: auto;
+  height: 20px;
+  width: 200px;
+  background: white;
+  border-radius: 25px;
+  border: 2px solid white;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 0 32px rgb(255, 0, 0);
+}
+
 .progress-fill {
   position: absolute;
   height: 90%;
@@ -163,6 +178,20 @@ body {
     90deg,
     rgba(34, 193, 195, 1) 0%,
     rgba(45, 63, 253, 1) 100%
+  );
+  border-radius: 15px;
+  transition: 1s;
+}
+
+.progress-fill__hunger {
+  position: absolute;
+  height: 90%;
+  width: 100%;
+  background: rgb(195, 34, 66);
+  background: linear-gradient(
+    90deg,
+    rgba(195, 34, 66, 1) 0%,
+    rgb(253, 45, 45) 100%
   );
   border-radius: 15px;
   transition: 1s;
