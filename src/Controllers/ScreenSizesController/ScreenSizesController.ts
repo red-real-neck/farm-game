@@ -32,30 +32,6 @@ export class ScreenSizesController {
       // Update renderer
       this._rendererController.updateRendererSizes(this._sizes);
     });
-
-    window.addEventListener("dblclick", () => {
-      const fullscreenElement =
-        // @ts-ignore
-        document.fullscreenElement || document.webkitFullscreenElement;
-
-      if (!fullscreenElement) {
-        if (this._canvas.requestFullscreen) {
-          this._canvas.requestFullscreen();
-          // @ts-ignore
-        } else if (this._canvas.webkitRequestFullscreen) {
-          // @ts-ignore
-          this._canvas.webkitRequestFullscreen();
-        }
-      } else {
-        if (document.exitFullscreen) {
-          document.exitFullscreen();
-          // @ts-ignore
-        } else if (document.webkitExitFullscreen) {
-          // @ts-ignore
-          document.webkitExitFullscreen();
-        }
-      }
-    });
   }
 
   setControllers(

@@ -1,5 +1,6 @@
 import { Food, FoodType } from "../Entities/Foods/Food";
 import { Resources } from "../Entities/Units/ResourceUnit";
+import { AudioController } from "../Controllers/AudioController";
 
 export class FoodCollector {
   private static instance: FoodCollector;
@@ -29,6 +30,7 @@ export class FoodCollector {
     this.EGG = 0;
     this.MILK = 0;
     this.updateUI();
+    AudioController.getInstance().playSound("cash");
   }
 
   static getInstance(): FoodCollector {

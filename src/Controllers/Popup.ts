@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { AudioController } from "./AudioController";
 import {
   ScreenSizes,
   ScreenSizesController,
@@ -73,6 +74,7 @@ export class Popup {
     }
     this.hide();
     this._trackedObject = null;
+    AudioController.getInstance().playSound("click");
   }
 
   public toggleToFeed() {

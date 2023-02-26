@@ -9,6 +9,7 @@ import { UnitControllerInterface } from "../Controllers/UnitController/UnitContr
 import { CowUnitController } from "../Controllers/UnitController/CowUnitController";
 import { FoodCollector } from "../Collector/FoodCollector";
 import { ScreenSizes } from "../Controllers/ScreenSizesController/ScreenSizesController";
+import { AudioController } from "../Controllers/AudioController";
 
 export enum FoodTypeByUnit {
   WHEAT = FoodType.WHEAT,
@@ -47,12 +48,15 @@ export class FieldItem {
     this._unitController;
     switch (unit) {
       case Resources.WHEAT:
+        AudioController.getInstance().playSound("wheat");
         this._unitController = new WheatUnitController(this, camera, sizes);
         break;
       case Resources.COW:
+        AudioController.getInstance().playSound("cow");
         this._unitController = new CowUnitController(this, camera, sizes);
         break;
       case Resources.CHICKEN:
+        AudioController.getInstance().playSound("chicken");
         this._unitController = new ChickenUnitController(this, camera, sizes);
         break;
     }
