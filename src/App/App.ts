@@ -118,6 +118,8 @@ export default class App {
         aimationController.animate(picker.intersects, deltaTime);
       }
 
+      field.render();
+
       // Update controls
       controlsController.controls.update();
 

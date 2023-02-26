@@ -8,6 +8,7 @@ import { ChickenUnitController } from "../Controllers/UnitController/ChickenUnit
 import { UnitControllerInterface } from "../Controllers/UnitController/UnitControllerInterface";
 import { CowUnitController } from "../Controllers/UnitController/CowUnitController";
 import { FoodCollector } from "../Collector/FoodCollector";
+import { ScreenSizes } from "../Controllers/ScreenSizesController/ScreenSizesController";
 
 export enum FoodTypeByUnit {
   WHEAT = FoodType.WHEAT,
@@ -31,20 +32,24 @@ export class FieldItem {
     return this._item3D;
   }
 
-  public setUnit(unit: Resources) {
+  public setUnit(
+    unit: Resources,
+    camera: THREE.PerspectiveCamera,
+    sizes: ScreenSizes
+  ) {
     FoodCollector.getInstance().subItem(unit);
     this._resourceUnit = UnitFabric.createUnit(unit);
     this._item3D.update(this._resourceUnit);
     this._unitController;
     switch (unit) {
       case Resources.WHEAT:
-        this._unitController = new WheatUnitController(this);
+        this._unitController = new WheatUnitController(this, camera, sizes);
         break;
       case Resources.COW:
-        this._unitController = new CowUnitController(this);
+        this._unitController = new CowUnitController(this, camera, sizes);
         break;
       case Resources.CHICKEN:
-        this._unitController = new ChickenUnitController(this);
+        this._unitController = new ChickenUnitController(this, camera, sizes);
         break;
     }
     this._unitController.start();
@@ -67,5 +72,13 @@ export class FieldItem {
 
   get food() {
     return this._food;
+  }
+
+  get item3D() {
+    return this._item3D;
+  }
+
+  render() {
+    this._unitController?.updateUI();
   }
 }

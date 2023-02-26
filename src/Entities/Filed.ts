@@ -38,4 +38,10 @@ export class Field {
   get items3D(): FieldItem3D[] {
     return this._field3D.items3D;
   }
+
+  public render() {
+    for (let i = 0; i < this._items.length; i++) {
+      this._items[i].render();
+    }
+  }
 }

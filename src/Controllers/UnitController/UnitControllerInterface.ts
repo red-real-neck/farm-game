@@ -7,4 +7,6 @@ export enum UnitsLiveTime {
 export interface UnitControllerInterface {
   start();
   kill();
+  generateUI();
+  updateUI();
 }

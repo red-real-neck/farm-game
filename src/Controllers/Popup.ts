@@ -58,7 +58,9 @@ export class Popup {
     if (!target.dataset.unit) return;
     event.preventDefault();
     this._trackedObject?.object.userData.itemEntity.setUnit(
-      target.dataset.unit
+      target.dataset.unit,
+      this._camera,
+      this._sizes
     );
     this.hide();
     this._trackedObject = null;
