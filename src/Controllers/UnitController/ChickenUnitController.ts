@@ -70,6 +70,7 @@ export class ChickenUnitController implements UnitControllerInterface {
       if (this._restHungerTime === 1) {
         this._isHunger = true;
         this.resetHungerTimeCounter();
+        this.resetGetResourceTimeCounter();
       } else {
         // console.log("hunger timer:", this._restHungerTime);
       }
@@ -80,6 +81,8 @@ export class ChickenUnitController implements UnitControllerInterface {
 
   private resetGetResourceTimeCounter() {
     clearInterval(this._getResourceTimer);
+    this._getResourceTimer = null;
+    this._restTime = 0;
   }
 
   private resetHungerTimeCounter() {
@@ -123,8 +126,8 @@ export class ChickenUnitController implements UnitControllerInterface {
     const coeff = this._restHungerTime / (HUNGER_TIMEL / 100);
     this._hungerFill.style.width = `${coeff}%`;
 
-    this._hungerFill.style.background = `rgb(${75 + coeff}, ${
-      154 - coeff
+    this._hungerFill.style.background = `rgb(${175 - coeff}, ${
+      54 + coeff
     }, 66)`;
 
     const point = this._item.item3D.mesh.position.clone();

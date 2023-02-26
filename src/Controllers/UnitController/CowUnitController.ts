@@ -126,8 +126,8 @@ export class CowUnitController implements UnitControllerInterface {
     const coeff = this._restHungerTime / (HUNGER_TIMER / 100);
     this._hungerFill.style.width = `${coeff}%`;
 
-    this._hungerFill.style.background = `rgb(${75 + coeff}, ${
-      154 - coeff
+    this._hungerFill.style.background = `rgb(${175 - coeff}, ${
+      54 + coeff
     }, 66)`;
 
     const point = this._item.item3D.mesh.position.clone();
@@ -203,7 +203,6 @@ export class CowUnitController implements UnitControllerInterface {
   }
 
   feed() {
-    console.log("this._restTime:", this._restTime);
     this._isHunger = false;
     this.restartHungerTimer();
     if (!this._getResourceTimer) {
