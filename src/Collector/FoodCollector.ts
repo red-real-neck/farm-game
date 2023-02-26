@@ -54,4 +54,8 @@ export class FoodCollector {
     this.eggCounterUI.innerText = this.EGG.toString();
     this.milkCounterUI.innerText = this.MILK.toString();
   }
+
+  public checkWheat() {
+    return this.WHEAT > 0;
+  }
 }

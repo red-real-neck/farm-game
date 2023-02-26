@@ -37,6 +37,10 @@ export class FieldItem {
     camera: THREE.PerspectiveCamera,
     sizes: ScreenSizes
   ) {
+    if (!FoodCollector.getInstance().checkWheat()) {
+      this.showErrorMessage();
+      return;
+    }
     FoodCollector.getInstance().subItem(Resources.WHEAT);
     this._resourceUnit = UnitFabric.createUnit(unit);
     this._item3D.update(this._resourceUnit);
@@ -91,5 +95,35 @@ export class FieldItem {
   public feed() {
     FoodCollector.getInstance().subItem(Resources.WHEAT);
     this._unitController?.feed();
+  }
+
+  private showErrorMessage() {
+    function delay(ms) {
+      return new Promise((resolve, reject) => {
+        setTimeout(resolve, ms);
+      });
+    }
+
+    if (document.querySelector(".wheat_err__wrapper")) {
+      document.body.removeChild(
+        document.querySelector(".wheat_err__wrapper") as HTMLElement
+      );
+    }
+
+    const errorWrapper = document.createElement("div");
+    const errorMessage = document.createElement("div");
+    errorWrapper.classList.add("wheat_err__wrapper");
+    errorWrapper.classList.add("visible");
+    errorMessage.classList.add("err_message");
+    errorMessage.innerText = "Не хватает зерна 😢";
+    errorWrapper.appendChild(errorMessage);
+    document.body.appendChild(errorWrapper);
+
+    delay(2500).then(() => {
+      errorWrapper.classList.remove("visible");
+      delay(1000).then(() => {
+        document.body.removeChild(errorWrapper);
+      });
+    });
   }
 }
