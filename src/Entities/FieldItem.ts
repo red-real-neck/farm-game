@@ -68,6 +68,7 @@ export class FieldItem {
     if (!this._food) return;
     this._item3D.destroyFood();
     FoodCollector.getInstance().addItem(this._food);
+    this._unitController.restartGetResourceTimer();
   }
 
   get food() {

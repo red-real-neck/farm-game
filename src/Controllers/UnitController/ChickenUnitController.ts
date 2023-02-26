@@ -123,4 +123,9 @@ export class ChickenUnitController implements UnitControllerInterface {
 
     this._barWrapper.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`;
   }
+
+  restartGetResourceTimer() {
+    this.resetGetResourceTimeCounter();
+    this.startGetResourceTimeCounter();
+  }
 }
