@@ -6,6 +6,8 @@ import { Unit3DFabric } from "../Fabric/Unit3DFabric";
 import { Loader } from "../Loader/Loader";
 import { BlockTextures, TextureStates } from "./Field3D";
 
+const BOX_SIZE = 2;
+
 export class FieldItem3D {
   private _textureCube: THREE.MeshBasicMaterial[];
   private _geometry: THREE.BoxGeometry;
@@ -21,7 +23,7 @@ export class FieldItem3D {
     textures: TextureStates,
     itemEntity: FieldItem
   ) {
-    this._geometry = new THREE.BoxGeometry(1, 1, 1);
+    this._geometry = new THREE.BoxGeometry(BOX_SIZE, 1, BOX_SIZE);
     this._textures = textures;
 
     this._textureCube = [
@@ -58,8 +60,9 @@ export class FieldItem3D {
     this._mesh.userData = {
       itemEntity: itemEntity,
     };
-    this._mesh.position.x = (index % 8) - fieldWidth / 2 + 0.5;
-    this._mesh.position.z = Math.floor(index / 8) - fieldHeight / 2 + 0.5;
+    this._mesh.position.x = (index % 8) * BOX_SIZE - fieldWidth + BOX_SIZE / 2;
+    this._mesh.position.z =
+      Math.floor(index / 8) * BOX_SIZE - fieldHeight + BOX_SIZE / 2;
   }
 
   public update(resourceUnit: ResourceUnit) {

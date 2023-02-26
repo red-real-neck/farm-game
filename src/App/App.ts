@@ -37,6 +37,14 @@ export default class App {
      * Object
      */
 
+    // const centerCube = new THREE.Mesh(
+    //   new THREE.BoxGeometry(1, 1, 1),
+    //   new THREE.MeshBasicMaterial({ color: "red" })
+    // );
+    // centerCube.position.y += 1;
+
+    // scene.add(centerCube);
+
     // const model = Loader.load("./models/chicken.glb", scene);
     // scene.add(model);
 
