@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { FieldItem3D } from "../3dObjects/FieldItem3D";
+import { Resources } from "../Entities/Units/ResourceUnit";
 import { Popup } from "./Popup";
 import {
   ScreenSizes,
@@ -59,6 +60,21 @@ export class Picker3D {
     if (this._intersects[0].object.userData.itemEntity.food) {
       this._intersects[0].object.userData.itemEntity.collectFood();
       return;
+    }
+
+    if (
+      this._intersects[0].object.userData.itemEntity.resourceType &&
+      this._intersects[0].object.userData.itemEntity.resourceType !=
+        Resources.WHEAT
+    ) {
+      this._popup.toggleToFeed();
+    } else if (
+      this._intersects[0].object.userData.itemEntity.resourceType ===
+      Resources.WHEAT
+    ) {
+      return;
+    } else {
+      this._popup.toggleToBar();
     }
 
     this._popup.trackedObject = this._intersects[0];

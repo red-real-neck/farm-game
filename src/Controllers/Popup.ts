@@ -11,6 +11,8 @@ export class Popup {
   > | null;
   private _camera: THREE.Camera;
   private _sizes: ScreenSizes;
+  private _feedEl: HTMLElement;
+  private _barEl: HTMLElement;
 
   constructor(
     popupEl: HTMLElement,
@@ -20,6 +22,9 @@ export class Popup {
     this._popupEl = popupEl;
     this._camera = camera;
     this._sizes = sizesController.sizes;
+
+    this._feedEl = document.querySelector("#feed") as HTMLElement;
+    this._barEl = document.querySelector("#bar") as HTMLElement;
 
     popupEl.addEventListener("click", (event) => this._click(event));
   }
@@ -64,5 +69,15 @@ export class Popup {
     );
     this.hide();
     this._trackedObject = null;
+  }
+
+  public toggleToFeed() {
+    this._barEl.classList.add("hidden");
+    this._feedEl.classList.remove("hidden");
+  }
+
+  public toggleToBar() {
+    this._barEl.classList.remove("hidden");
+    this._feedEl.classList.add("hidden");
   }
 }

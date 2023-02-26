@@ -152,12 +152,13 @@ body {
   border: 2px solid white;
   background-color: rgb(255, 255, 255);
   box-shadow: 0 0 32px blue;
+  pointer-events: none;
 }
 
 .hunger-progress-bar {
   position: absolute;
   /* transform: rotate(-90deg); */
-  top: -30%;
+  top: 100%;
   left: -40%;
   pointer-events: auto;
   height: 20px;
@@ -167,6 +168,7 @@ body {
   border: 2px solid white;
   background-color: rgb(255, 255, 255);
   box-shadow: 0 0 32px rgb(255, 0, 0);
+  pointer-events: none;
 }
 
 .progress-fill {
@@ -181,6 +183,7 @@ body {
   );
   border-radius: 15px;
   transition: 1s;
+  pointer-events: none;
 }
 
 .progress-fill__hunger {
@@ -195,4 +198,5 @@ body {
   );
   border-radius: 15px;
   transition: 1s;
+  pointer-events: none;
 }

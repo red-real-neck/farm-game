@@ -37,7 +37,7 @@ export class FieldItem {
     camera: THREE.PerspectiveCamera,
     sizes: ScreenSizes
   ) {
-    FoodCollector.getInstance().subItem(unit);
+    FoodCollector.getInstance().subItem(Resources.WHEAT);
     this._resourceUnit = UnitFabric.createUnit(unit);
     this._item3D.update(this._resourceUnit);
     this._unitController;
@@ -56,10 +56,14 @@ export class FieldItem {
   }
 
   get resourceType() {
-    return this._resourceUnit!.unit;
+    if (!this._resourceUnit) return null;
+    return this._resourceUnit.unit;
   }
 
   public newFood() {
+    if (!this.resourceType) {
+      throw new Error("this.resourceType cannot be null");
+    }
     this._food = new Food(FoodTypeByUnit[this.resourceType]);
     this._item3D.showFood(this._food);
   }
@@ -69,6 +73,7 @@ export class FieldItem {
     this._item3D.destroyFood();
     FoodCollector.getInstance().addItem(this._food);
     this._unitController.restartGetResourceTimer();
+    this._food = null;
   }
 
   get food() {

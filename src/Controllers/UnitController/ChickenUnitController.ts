@@ -42,7 +42,7 @@ export class ChickenUnitController implements UnitControllerInterface {
     let timer;
     this._restTime = UnitsLiveTime[this._item.resourceType!];
     timer = setInterval(() => {
-      if (this._restTime <= 0) {
+      if (this._restTime === 1) {
         this.resetGetResourceTimeCounter();
         if (!this._isHunger) this._item.newFood();
       } else {
